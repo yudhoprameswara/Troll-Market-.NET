@@ -1,0 +1,50 @@
+﻿@using TrollMarket.DTO.Cart
+@model CartIndexDTO
+@{
+    ViewData["Title"] = "Cart Index";
+    ViewData["BreadCrumbs"] = "Cart";
+    var columnHeads = new string[] { "Action", "Product", "Quantity", "Shipment","Seller","Total Price" };
+    var parameters = new
+    {
+    };
+
+    <div class="create-container">
+        <a asp-action="PurchaseAll" class="create-button">
+            <i class="fas fa-plus-circle"></i>Purchase All
+        </a>
+    </div>
+    @if (ViewBag.Error == false)
+    {
+        <div>
+            <p class="field-validation-error">Insufficient Funds!</p>
+        </div>
+        
+    }
+    <table>
+        <thead columns="columnHeads"> </thead>
+        <tbody>
+
+            @foreach (var row in Model.Grid)
+            {
+                <tr>
+                    <td class="merchandise-button ">
+                        <a asp-action="Delete" asp-route-id="@row.Id" class="delete-button"><i class="fas fa-eraser"></i> Remove</a>
+                    </td>
+                    <td>@row.Product</td>
+                    <td>@row.Quantity</td>
+                    <td>@row.Shipment</td>
+                    <td>@row.Seller</td>
+                    <td>@row.TotalPrice</td>
+                    
+                </tr>
+            }
+        </tbody>
+        <pagination colspan="@columnHeads.Length"
+                total-pages="@Model.TotalPages"
+                page="@ViewBag.Page"
+                controller="Cart"
+                parameters="@parameters">
+        </pagination>
+
+    </table>
+}

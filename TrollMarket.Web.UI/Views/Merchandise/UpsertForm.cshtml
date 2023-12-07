@@ -1,0 +1,75 @@
+﻿@using TrollMarket.DTO.Merchandise
+@model UpsertProductDTO
+@{
+
+      ViewData["Title"] = "Merchandise Form";
+      ViewData["BreadCrumbs"] = "Merchandise Form";
+
+}
+<div>
+<form class="upsert-form" method="post" asp-action="Upsert">
+    @if (Model.Id > 0)
+    {
+            <input type="hidden" asp-for="Id" />    
+    }
+    <input type="hidden" name="sellerId" value="@ViewBag.SellerId">
+    <table class="form-table">
+        <tbody>
+            <tr>
+                <td>
+                    <label>Name</label>
+                </td>
+                <td>
+                    <input asp-for="Name">
+                    <span asp-validation-for="Name"></span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Category</label>
+                </td>
+                <td>
+                    <input asp-for="Category">
+                    <span asp-validation-for="Category"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="textarea-label">
+                    <label>Description</label>
+                </td>
+                <td>
+                    <textarea asp-for="Description"></textarea>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <label>Price</label>
+                </td>
+                <td>
+                    <input type="number" asp-for="Price">
+                </td>
+            </tr>
+
+            @if(Model.Discontinue != null)
+            {
+                <tr>
+                    <td>
+                        <label>Discontinue</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" asp-for="Discontinue" name="discontinue" value="true">
+                    </td>
+                </tr>
+                
+            }
+
+            
+        </tbody>
+    </table>
+    <button type="submit" class="blue-button">Save</button>
+</form>
+</div>

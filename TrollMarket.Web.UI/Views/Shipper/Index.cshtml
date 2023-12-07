@@ -1,0 +1,42 @@
+﻿@using TrollMarket.DTO.Shipment
+@model ShipmentIndexDTO
+@{
+    ViewData["Title"] = "Shipment Index";
+    ViewData["BreadCrumbs"] = "Shipper";
+    var columnHeads = new string[] { "Action", "Name", "Price", "Service" };
+    var parameters = new
+    {
+       
+    };
+}
+        <div class="create-container">
+            <a href="javascript:;" class="create-button">
+                <i class="fas fa-plus-circle"></i> Add new Shipment
+            </a>
+        </div>
+        <table>
+            <thead columns="columnHeads"> </thead>
+            <tbody>
+        
+            @foreach (var row in Model.Grid)
+            {
+                <tr>
+                    <td class="shipper-button ">
+                        <a href="javascript:;" data-id="@row.Id" class="edit-button"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="/shipper/delete/@row.Id" class="delete-button "><i class="fas fa-eraser"></i> Delete</a>
+                    <a href="/shipper/stopService/@row.Id" class="books-button"><i class="fas fa-shipping-fast"></i> Stop Service</a>
+                    </td>
+
+                    <td>@row.Name</td>
+                    <td>@row.Price</td>
+                    <td>@row.Service</td>
+                </tr>
+            }
+            </tbody>
+            <pagination colspan="@columnHeads.Length"
+                        total-pages="@Model.TotalPages"
+                        page="@ViewBag.page"
+                        controller="Shipper">
+            </pagination>
+                
+        </table>

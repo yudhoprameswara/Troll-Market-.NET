@@ -1,0 +1,34 @@
+
+
+[data-role="Administrator"] .profile-menu,
+[data-role="Administrator"] .shop-menu,
+[data-role="Administrator"] .merchandise-menu,
+[data-role="Administrator"] .cart-menu{
+    
+    color: #a6a6a6;
+    cursor: not-allowed;
+}
+
+[data-role="Seller"] .shop-menu,
+[data-role="Seller"] .shipment-menu,
+[data-role="Seller"] .cart-menu,
+[data-role="Seller"] .admin-menu,
+[data-role="Seller"] .history-menu
+{
+    
+    color: #a6a6a6;
+    cursor: not-allowed;
+}
+
+[data-role="Seller"] .top-up-button{
+    display: none;
+}
+
+[data-role="Buyer"] .merchandise-menu,
+[data-role="Buyer"] .shipment-menu,
+[data-role="Buyer"] .admin-menu,
+[data-role="Buyer"] .history-menu
+{
+    color: #a6a6a6;
+    cursor: not-allowed;
+}

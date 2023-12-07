@@ -1,0 +1,66 @@
+﻿@using TrollMarket.DTO.Account
+@model RegisterDTO
+
+
+@{
+    ViewData["Title"] = "Register Form";
+    Layout = "_SimpleLayout";
+   
+}
+<h1>Sign Up</h1>
+<form method="post" asp-action="Register">
+    <div asp-validation-summary="All" ></div>
+    <input type="hidden" asp-for="Role" value="@Model.Role"/>
+    <table>
+        <tr>
+            <td>
+
+                <label> Username</label>
+            </td>
+            <td>
+                <input asp-for ="Username" placeholder="Username"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label> Password</label>
+            </td>
+            <td>
+                <input type="password" asp-for="Password" placeholder="Password" />
+            </td>
+        </tr>
+
+        <tr>
+             <td>
+                <label>Confirm Password</label>
+            </td>
+            <td>
+                <input type="password" asp-for="PasswordConfirmation" placeholder="Confirm Password" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Name</label>
+            </td>
+            <td>
+                <input asp-for="Name" placeholder="Name"  />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Address</label>
+            </td>
+            <td>
+                <input asp-for="Address" placeholder="Address" />
+            </td>
+        </tr>
+        
+    </table>
+    <button type="submit">Sign Up</button>
+</form>
+<div class="link-container">
+    <a asp-action="Login">Click here to Login</a>
+</div>

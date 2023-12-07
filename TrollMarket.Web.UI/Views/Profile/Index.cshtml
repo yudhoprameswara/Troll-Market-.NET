@@ -1,0 +1,87 @@
+﻿@using TrollMarket.DTO.Profile
+@model ProfileIndexDTO
+@{
+    ViewData["Title"] = "Profile Index";
+    ViewData["BreadCrumbs"] = "Profile";
+    var columnHeads = new string[] { "Date", "Product", "Quantity","Shipment","Total Price" };
+    var parameters = new
+    {
+     
+    };
+   
+}
+@section indexScript{
+    <script src="~/js/profile/profile-popup.js"></script>
+}
+
+    <table class="detail-info">
+
+        <tr>
+            <td>
+                <label>
+                    Name
+                </label>
+            </td>
+            <td>@Model.DetailInfo.Name</td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>
+                    Role
+                </label>
+            </td>
+            <td> @Model.DetailInfo.Role</td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>
+                    Address
+                </label>
+            </td>
+            <td>@Model.DetailInfo.Address</td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>
+                    Balance
+                </label>
+            </td>
+            <td class="balance"> @Model.DetailInfo.Balance</td>
+
+        @if (Model.DetailInfo.Role == "Buyer")
+        {
+            <td><a href="javascript:;" class="green-button-topUp top-up-button"><i class="fas fa-money-bill-wave-alt"></i> Top Up</a></td>
+        }
+
+        </tr>
+    </table>
+
+    <table>
+        <thead columns="columnHeads"> </thead>
+        <tbody>
+
+            @foreach (var row in Model.Grid)
+            {
+            <tr>
+                <td>@row.Date</td>
+                <td>@row.Product</td>
+                <td>@row.Quantity</td>
+                <td>@row.Shipment</td>
+                <td>@row.TotalPrice</td>
+            </tr>
+            }
+        </tbody>
+        <pagination colspan="@columnHeads.Length"
+                    total-pages="@Model.TotalPages"
+                    page="@ViewBag.page"
+                    controller="Profile">
+        </pagination>
+
+    </table>
+
+@section modalDialog {
+    <partial name="TopUpPopUp"/>  
+}

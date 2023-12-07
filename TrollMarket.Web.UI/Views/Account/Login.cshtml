@@ -1,0 +1,20 @@
+﻿@using TrollMarket.DTO.Account
+@using TrollMarket.DTO.Utility;
+@model LoginDTO
+
+
+@{
+    ViewData["Title"] = "Login Form";
+    Layout = "_SimpleLayout";
+}
+<h1>Sign In</h1>
+<form method="post" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="Username" placeholder="Username" />
+    <input type="password" asp-for="Password" placeholder="Password" />
+    <button type="submit">Sign In</button>
+</form>
+<div class="link-container">
+    <a asp-action="RegisterBuyer">Click here to Register as Buyer</a>
+    <a asp-action="RegisterSeller">Click here to Register as Seller</a>
+</div>

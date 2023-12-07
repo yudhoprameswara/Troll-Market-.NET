@@ -1,0 +1,38 @@
+﻿@using TrollMarket.DTO.Admin
+@model AdminRegisterDTO
+
+
+
+<form class="upsert-form" method="post" asp-controller="Admin" asp-action="Register">
+    <div asp-validation-summary="All"></div>
+        <table class="form-table">
+             <tr>
+            <td>
+
+                <label> Username</label>
+            </td>
+            <td>
+                <input asp-for ="Username" placeholder="Username"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label> Password</label>
+            </td>
+            <td>
+                <input type="password" asp-for="Password" placeholder="Password" />
+            </td>
+        </tr>
+
+        <tr>
+             <td>
+                <label>Confirm Password</label>
+            </td>
+            <td>
+                <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" />
+            </td>
+        </tr>
+        </table>
+        <button type="submit" class="blue-button">Sign Up New Admin</button>
+</form>

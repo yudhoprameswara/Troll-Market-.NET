@@ -1,0 +1,80 @@
+﻿@using TrollMarket.DTO.History
+@model HistoryIndexDTO
+@{
+    ViewData["Title"] = "History Index";
+    ViewData["BreadCrumbs"] = "History";
+    var columnHeads = new string[] { "Date", "Seller", "Buyer", "Product","Quantity","Shipment","Total Price" };
+    var parameters = new
+    {
+        buyerId = ViewBag.BuyerId,
+        seller = ViewBag.Seller
+    };
+}
+<form class="filter" method="get" asp-controller="History" asp-action="Index">
+    <table class="detail-info">
+        <tr>
+            <td>
+                <label>Buyer</label>
+            </td>
+            <td>
+                <select name="buyerId">
+                    @foreach (var option in Model.BuyerDropdown)
+                    {
+                        if (ViewBag.BuyerId != null && option.Value == ViewBag.BuyerId )
+                        {
+                            <option selected value="@option.Value"> @option.Text</option>
+                        }
+                        <option value="@option.Value"> @option.Text</option>
+                    }
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Seller</label>
+            </td>
+            <td>
+                <select name="seller">
+                    @foreach (var option in Model.SellerDropdown)
+                    {
+                        if (ViewBag.Seller != null && option.Value == ViewBag.Seller)
+                        {
+                            <option selected value="@option.Value"> @option.Text</option>
+                        }
+                        <option value="@option.Value"> @option.Text</option>
+                    }
+
+                </select>
+            </td>
+        </tr>
+    </table>
+
+        <button type="submit" class="blue-button">Search</button>
+    </form>
+
+<table>
+    <thead columns="columnHeads"> </thead>
+    <tbody>
+
+        @foreach (var row in Model.Grid)
+        {
+            <tr>
+                <td>@row.Date</td>
+                <td>@row.Seller</td>
+                <td>@row.Buyer</td>
+                <td>@row.Product</td>
+                <td>@row.Quantity</td>
+                <td>@row.Shipment</td>
+                <td>@row.TotalPrice</td>
+            </tr>
+        }
+    </tbody>
+    <pagination colspan="@columnHeads.Length"
+                total-pages="@Model.TotalPages"
+                page="@ViewBag.Page"
+                controller="History"
+                parameters="@parameters">
+    </pagination>
+
+</table>

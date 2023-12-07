@@ -1,0 +1,54 @@
+﻿@using TrollMarket.DTO.Merchandise
+@model MerchandiseIndexDTO
+@{
+    ViewData["Title"] = "Merchandise Index";
+    ViewData["BreadCrumbs"] = "Merchandise";
+    var columnHeads = new string[] { "Action", "Name", "Category", "Discontinue"};
+    var parameters = new
+    {
+    };
+}
+@section indexScript{
+    <script src="~/js/merchandise/merchandise-popup.js"></script>
+}
+<div class="create-container">
+    <a href="/merchandise/upsertForm" class="create-button">
+        <i class="fas fa-plus-circle"></i> Add new Product
+    </a>
+</div>
+<table>
+    <thead columns="columnHeads"> </thead>
+    <tbody>
+
+        @foreach (var row in Model.Grid)
+        {
+                <tr>
+                    <td class="merchandise-button ">
+                        <a asp-action="UpsertForm" asp-route-id="@row.Id" class="edit-button"><i class="fas fa-edit"></i> Edit</a>
+                        <a asp-action="Delete" asp-route-id="@row.Id" class="delete-button"><i class="fas fa-eraser"></i> Delete</a>
+                        <a href="javascript:;" data-id="@row.Id" class="summary-button info-button"><i class="fas fa-info-circle"></i> Info</a>
+                        @if(@row.Discontinue == "No")
+                        {
+                        <a asp-action="Discontinue" asp-route-id="@row.Id" class="books-button "><i class="fas fa-stop-circle"></i> Discontinue</a>
+                        }
+                    </td>
+                    <td>@row.Name</td>
+                    <td>@row.Category</td>
+                    <td>@row.Discontinue</td>
+                </tr>
+        }
+    </tbody>
+    <pagination colspan="@columnHeads.Length"
+                total-pages="@Model.TotalPages"
+                page="@ViewBag.Page"
+                controller="Merchandise"
+                parameters="@parameters">
+    </pagination>
+
+</table>
+
+@section modalDialog {
+    <div class="modal-layer">
+    <partial name="DetailProduct" />
+    </div>
+}

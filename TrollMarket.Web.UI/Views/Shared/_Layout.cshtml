@@ -1,0 +1,71 @@
+﻿@using System.Security.Claims;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Basilisk</title>
+    <link rel="stylesheet" href="~/css/normalize.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/authorization.css" />
+    <script src="~/js/jquery-3.6.0.js"></script>
+    <script src="~/js/site.js"></script>
+</head>
+<body class="main-body">
+    @{
+        var username = User.Claims.SingleOrDefault(clm => clm.Type == "username")?.Value;
+        var role = User.Claims.SingleOrDefault(clm => clm.Type == ClaimTypes.Role)?.Value;
+        username ??= "anon";
+    }
+
+    <div>
+        <header class="header-layout">
+            <div>
+                <h1>Troll Market</h1>
+            </div>
+
+            <div class="user-wrapper">
+                <div class="user">
+                    <span>Welcome, </span>
+                    <div class="full-name">@username</div>
+                </div>
+                <div class="sign-out">
+                    <form asp-controller="Account" asp-action="logout" method="get">
+                        <button class="sign-out-button" type="submit">
+                            Sign Out
+                            <i class="fas fa-door-open"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <nav class="upper-navbar" data-role="@role">
+            <a href="/">Home</a>
+            <a class="profile-menu" href="/profile/index">Profile</a>
+            <a class="shop-menu" href="/shop/index">Shop</a>
+            <a class="merchandise-menu" href="/merchandise/index">Merchandise</a>
+            <a class="shipment-menu" href="/shipper/index">Shipment</a>
+            <a class="cart-menu" href="/cart/index">My Cart</a>
+            <a class="admin-menu" asp-controller="admin" asp-action="NewAdmin">Admin</a>
+            <a class="history-menu" asp-controller="history" asp-action="Index">History</a>
+        </nav>
+
+        <div class="bread-crumbs">@ViewData["BreadCrumbs"] </div>
+    </div>
+
+        <div class="main-wrapper">
+        @RenderBody()
+        </div>
+   
+    <footer>
+        Copyrights &copy; 2023
+        <span> Yudho Prameswara</span>
+        All rights reserved.
+    </footer>
+    @RenderSection("modalDialog", required: false)
+    @RenderSection("indexScript", required: false)
+</body>
+</html>

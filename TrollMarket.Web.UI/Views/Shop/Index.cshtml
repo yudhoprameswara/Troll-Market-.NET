@@ -1,0 +1,89 @@
+﻿@using TrollMarket.DTO.Shop
+@model ShopIndexDTO
+
+
+@{
+    ViewData["Title"] = "Shop Index";
+    ViewData["BreadCrumbs"] = "Shop";
+    var columnHeads = new string[] { "Action", "Name", "Price"};
+    var parameters = new
+    {
+        name = ViewBag.Name,
+        category = ViewBag.Category
+    };
+}
+@section indexScript{
+    <script src="~/js/shop/shop-popup.js"></script>
+}
+<form class="filter" method="get" asp-controller="Shop" asp-action="Index">
+    <div>
+         <input type="text" name="name" placeholder="Search by name" value="@ViewBag.Name"></input>
+    </div>
+    <div>
+        <input type="text" name="category" placeholder="Search by category" value="@ViewBag.Category"></input>
+    </div>
+    <button type="submit" class="blue-button">Search</button>
+
+</form>
+<table>
+    <thead columns="columnHeads"> </thead>
+    <tbody>
+
+        @foreach (var row in Model.Grid)
+        {
+            <tr>
+                <td>
+                    <a href="javascript:;" data-id="@row.Id" class="green-button add-cart-button"><i class="fas fa-cart-plus"></i> Add to Cart</a>
+                    <a href="javascript:;" data-id="@row.Id" class="summary-button info-button"><i class="fas fa-info-circle"></i> Info</a>
+                </td>
+                <td>@row.Name</td>
+                <td>@row.Price</td>
+            </tr>
+        }
+    </tbody>
+    <pagination colspan="@columnHeads.Length"
+                total-pages="@Model.TotalPages"
+                page="@ViewBag.Page"
+                controller="Shop"
+                parameters="@parameters">
+    </pagination>
+
+</table>
+
+@section modalDialog {
+<div class="modal-layer">
+    <partial name="DetailPopUp" />
+
+    <div  class="popup-dialog  form-dialog">
+        <header>
+            <h1>Cart</h1>
+            <a href="javascript:;" class="close-button">
+                <i class="fas fa-window-close"></i>
+            </a>
+        </header>
+        <form method="post" action="javascript:;">
+            <input type="hidden" class="productId" name="productId">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>
+                            <input type="number" class="quantity" min="1">
+                            <div class="validation-message" data-for="quantity"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Shipment</td>
+                        <td>
+                            <select name="shipper" class="shipper" asp-items="@(new SelectList(Model.ShipperDropdown, "Value", "Text"))"></select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="blue-button">Add to Cart</button>
+        </form>
+
+    </div>
+</div>
+}
